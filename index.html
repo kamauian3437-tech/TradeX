@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TradeX Demo</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #08111f;
+    color: white;
+}
+
+header {
+    background: #101c30;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.status {
+    color: #42d392;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 18px;
+}
+
+.card {
+    background: #101c30;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 18px;
+}
+
+.price {
+    font-size: 38px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.market {
+    color: #9aa9bd;
+    margin-top: 5px;
+}
+
+.contracts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+button {
+    padding: 16px;
+    border: 1px solid #2a3a53;
+    border-radius: 10px;
+    background: #17253b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button.selected {
+    border-color: #3288ff;
+    background: #1b3d70;
+}
+
+.expiry {
+    margin-top: 20px;
+    padding: 15px;
+    background: #17253b;
+    border-radius: 10px;
+}
+
+.timer {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.notice {
+    color: #9aa9bd;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+#message {
+    margin-top: 15px;
+    padding: 12px;
+    background: #17253b;
+    border-radius: 8px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TradeX</div>
+    <div class="status">● DEMO MODE</div>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Demo Market</h2>
+
+        <div class="price" id="price">
+            100.00
+        </div>
+
+        <div class="market">
+            Simulated live market
+        </div>
+    </div>
+
+    <div class="card">
+
+        <h2>Contract Type</h2>
+
+        <div class="contracts">
+
+            <button onclick="selectType(this, 'Over')">
+                Over
+            </button>
+
+            <button onclick="selectType(this, 'Under')">
+                Under
+            </button>
+
+            <button onclick="selectType(this, 'Even')">
+                Even
+            </button>
+
+            <button onclick="selectType(this, 'Odd')">
+                Odd
+            </button>
+
+            <button onclick="selectType(this, 'Match')">
+                Match
+            </button>
+
+            <button onclick="selectType(this, 'Differ')">
+                Differ
+            </button>
+
+        </div>
+
+        <div class="expiry">
+            <div>Demo expiry</div>
+            <div class="timer" id="timer">3s</div>
+        </div>
+
+        <div id="message"></div>
+
+        <p class="notice">
+            This is a simulated interface using virtual data.
+            No real money or financial transactions are processed.
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+let price = 100;
+let selected = "";
+
+function selectType(button, type) {
+
+    document
+        .querySelectorAll("button")
+        .forEach(b => b.classList.remove("selected"));
+
+    button.classList.add("selected");
+
+    selected = type;
+
+    const message =
+        document.getElementById("message");
+
+    message.style.display = "block";
+
+    message.innerText =
+        "Selected contract: " + type;
+}
+
+setInterval(() => {
+
+    price += (Math.random() - 0.5) * 0.5;
+
+    document.getElementById("price")
+        .innerText = price.toFixed(2);
+
+}, 500);
+
+</script>
+
+</body>
+</html>
